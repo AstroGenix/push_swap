@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <stdlib.h>
+// 42 Libraries
+# include "libft/libft.h"
+# include "ft_printf/includes/ft_printf.h"
 
 // Stack Structure
 typedef struct s_list

@@ -20,28 +20,44 @@ Test for github
 
 int	main(int argc, char const *argv[])
 {
-	t_list	**stack_a;
-	t_list	**stack_b;
-	int		i;
+	t_list	*stack_a;
+	t_list	*stack_b;
 
-	i = 0;
-	if (argc < 2)
+	if (argc < 2) // If /a.out is the only input exit.
 		return (0);
-	stack_a = (t_list **)malloc(sizeof(t_list));
-	stack_b = (t_list **)malloc(sizeof(t_list));
-	stack_a = NULL;
-	stack_b = NULL;
-	list_init(stack_a, argc, argv);
-	printf("Stack A\t|\tStack B\n");
-	while (argv[i])
-    {
-		printf("%s\t|\t%s\n", argv[i]);
-		i++;
-    }
-	free(stack_a);
-	free(stack_b);
+	if (check_input(argv) == false) // Check input for abnormalities or duplicates (unique numbers only).
+		return (0);
 
-	return (1);
+	return (0);
+}
+
+bool	check_input(char *argv[]) // main - checks input for incorrect values (accepted values are unique positive or negative numbers)
+{
+	int i;
+	int	errors;
+
+	i = 1;
+	errors = 0;
+	while (argv[i])
+	{
+		if (!check_number(argv[i]))
+			errors++;
+		i++;
+	}
+	if (errors == 0 && check_duplicates(argv) == 0)
+		return (true);
+	else
+		return (false);
+}
+
+bool	check_number(char *argv[])
+{
+
+}
+
+int	check_duplicates(char *argv[]) // check_input - verifies the input for duplicate values.
+{
+
 }
 
 static void	list_init(t_list **stack_a, int argc, char *argv[])
@@ -50,22 +66,28 @@ static void	list_init(t_list **stack_a, int argc, char *argv[])
 	int		i;
 
 	i = 0;
+	if (argc = 1)
+		return (NULL);
+	else
+		i = 1;
 	while (argv[i])
 	{
-
+		new = list_newnode(ft_atoi(argv[i]));
+		list_addback(stack_a,new);
+		i++;
 	}
 }
 
 // LIBFT LIBRARIES
 
-t_list addnew(void *content)
+int list_newnode(int *num)
 {
 	t_list	*new_node;
 
 	new_node = malloc(sizeof(t_list));
 	if (!new_node)
 		return (NULL);
-	new_node->content = content;
+	new_node->num = num;
 	new_node->next = NULL;
 	return (new_node);
 }
