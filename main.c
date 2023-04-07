@@ -26,25 +26,33 @@ int	main(int argc, char *argv[])
 	if (argc < 2) // If /a.out is the only input exit.
 		return (0);
 	if (check_input(argv) == false) // Check input for abnormalities or duplicates (unique numbers only).
-		printf("Something went wrong!");//return (0);
-	else
-		printf("Sweet!");
+		// Output error\n and exit
+	stack_b = NULL;
+	//stack_a = insert values 
+	//Free both stacks
 
 	return (0);
 }
 
+//Error output function
+//Stack value insert
+//Stack free function
+
 bool	check_input(char *argv[]) // main - checks input for incorrect values (accepted values are unique positive or negative numbers).
 {
 	int	i;
+	int	zeros;
 
 	i = 1;
+	zeros = 0;
 	while (argv[i]) // Loop to check for not numbers.
 	{
 		if (check_number(argv[i]) == false) // If return is false -> argv[i] wasn't a number.
 			return (false);
+		zeros += find_zeros(argv[i]);
 		i++;
 	}
-	if (check_duplicates(argv) == true) // Checks for duplicates.
+	if (check_duplicates(argv) == true || zeros > 1) // Checks for duplicates.
 		return (false);
 	return (true);
 }
@@ -66,13 +74,27 @@ bool	check_number(char *argv) // check_input - Checks if input contains only a n
 	return (true);
 }
 
+int	find_zeros(char *argv)
+{
+	int	i;
+
+	i = 0;
+	if (argv[i] == '+' || argv[i] == '-')
+		i++;
+	while (argv[i] == 0 && argv[i] != '\0')
+		i++;
+	if (argv[i] != '\0')
+		return (0);
+	return (1);
+}
+
 bool	check_duplicates(char *argv[]) // check_input - verifies the input for duplicate values.
 {
 	int	i;
 	int	j;
 
 	i = 1;
-	while(argv[i])
+	while (argv[i])
 	{
 		j = 1;
 		while (argv[j])
@@ -103,7 +125,7 @@ int	dupstring_compare(const char *str1, const char *str2) // check_duplicates - 
 		if (str2[j] == '+')
 		i++;
 	}
-	while(str1[i] && str2[j] && str1[i] == str2[j])
+	while (str1[i] && str2[j] && str1[i] == str2[j])
 	{
 		i++;
 		j++;
