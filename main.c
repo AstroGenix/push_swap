@@ -16,7 +16,7 @@ Create special cases for:
 Test for github
 */
 
-#include "includes/push_swap.h"
+#include "include/push_swap.h"
 
 int	main(int argc, char *argv[])
 {
@@ -38,7 +38,9 @@ int	main(int argc, char *argv[])
 //Stack value insert
 //Stack free function
 
-bool	check_input(char *argv[]) // main - checks input for incorrect values (accepted values are unique positive or negative numbers).
+/*source/input_check - start*/
+// main - checks input for incorrect values (accepted values are unique positive or negative numbers).
+bool	check_input(char *argv[])
 {
 	int	i;
 	int	zeros;
@@ -57,7 +59,8 @@ bool	check_input(char *argv[]) // main - checks input for incorrect values (acce
 	return (true);
 }
 
-bool	check_number(char *argv) // check_input - Checks if input contains only a number.
+// check_input - Checks if input contains only a number.
+bool	check_number(char *argv)
 {
 	int	i;
 
@@ -74,6 +77,7 @@ bool	check_number(char *argv) // check_input - Checks if input contains only a n
 	return (true);
 }
 
+//check_input - Check values for duplicate types of zeros. (0, 00, -0).
 int	find_zeros(char *argv)
 {
 	int	i;
@@ -88,18 +92,21 @@ int	find_zeros(char *argv)
 	return (1);
 }
 
-bool	check_duplicates(char *argv[]) // check_input - verifies the input for duplicate values.
+// check_input - verifies the input for duplicate values.
+bool	check_duplicates(char *argv[])
 {
 	int	i;
 	int	j;
 
 	i = 1;
+	// Big loop to compare i char to j.
 	while (argv[i])
 	{
 		j = 1;
+		// Small loop to check for dups
 		while (argv[j])
 		{
-			if (j != i && dupstring_compare(argv[i],argv[j]) == 0)
+			if (j != i && dupstring_compare(argv[i],argv[j]) == 0) // Don't compare if they're the same char.
 				return (true);
 			j++;
 		}
@@ -108,60 +115,30 @@ bool	check_duplicates(char *argv[]) // check_input - verifies the input for dupl
 	return (false);
 }
 
-int	dupstring_compare(const char *str1, const char *str2) // check_duplicates - Compares two strings of digits to check if they are the same or not.
+// check_duplicates - Compares two strings of digits to check if they are the same or not.
+int	dupstring_compare(const char *str1, const char *str2)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	if (str1[i] == '+') //  +1 == 1 but -1 != 1.
+	// +1 == 1 but -1 != 1.
+	if (str1[i] == '+') // Enter if str1 starts with '+'.
 	{
-		if (str2[j] != '+') // Skips '+' sign if false.
+		if (str2[j] != '+') // i++ if string2 starts with a '+'.
 		i++;
 	}
-	else
+	else // Else '-' or nothing
 	{
 		if (str2[j] == '+')
 		i++;
 	}
-	while (str1[i] && str2[j] && str1[i] == str2[j])
+	while (str1[i] && str2[j] && str1[i] == str2[j]) // Incriment whilst both strings are the same and end.
 	{
 		i++;
 		j++;
 	}
 	return ((unsigned char)str1[i] - (unsigned char)str2[j]); // Return 0 if the strings match.
 }
-
-/*static void	list_init(t_list **stack_a, int argc, char *argv[])
-{
-	t_list	*new;
-	int		i;
-
-	i = 0;
-	if (argc = 1)
-		return (NULL);
-	else
-		i = 1;
-	while (argv[i])
-	{
-		new = list_newnode(ft_atoi(argv[i]));
-		list_addback(stack_a,new);
-		i++;
-	}
-}
-
-// LIBFT LIBRARIES
-
-int list_newnode(int *num)
-{
-	t_list	*new_node;
-
-	new_node = malloc(sizeof(t_list));
-	if (!new_node)
-		return (NULL);
-	new_node->num = num;
-	new_node->next = NULL;
-	return (new_node);
-}
-*/
+/*source/input_check - end*/
