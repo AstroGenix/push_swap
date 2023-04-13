@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include <limits.h>
 // 42 Libraries
 # include "libft/libft.h"
 # include "ft_printf/includes/ft_printf.h"
@@ -26,10 +27,22 @@
 typedef struct s_list
 {
 	int				num;
+	int				rank;
 	struct s_list	*next;	
 }	t_list;
 
 
 // Main Functions
+bool	check_input(char *argv[]);
+bool	check_number(char *argv);
+int		find_zeros(char *argv);
+bool	check_duplicates(char *argv[]);
+int		dupstring_compare(const char *str1, const char *str2);
+t_list	*insert_values(int argc, char *argv[]);
+t_list	*stack_add_new(int num);
+void	stack_add_bottom(t_list **stack, t_list *new);
+t_list	*get_last_stack(t_list *stack);
+void	error(t_list **stack_a, t_list **stack_b);
+int	get_stack_size(t_list *stack);
 
 #endif

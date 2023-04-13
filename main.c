@@ -10,31 +10,125 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-Create special cases for:
-• When there is a low ammount of numbers;
-Test for github
-*/
-
 #include "include/push_swap.h"
 
 int	main(int argc, char *argv[])
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
+	int		stack_size;
 
 	if (argc < 2) // If /a.out is the only input exit.
 		return (0);
 	if (check_input(argv) == false) // Check input for abnormalities or duplicates (unique numbers only).
-		// Output error\n and exit
+		error(NULL, NULL);
 	stack_b = NULL;
-	//stack_a = insert values 
+	stack_a = insert_values(argc, argv);
+	stack_size = get_stack_size(stack_a);
+	//Sort size
+	if (argc == 4 || argc == 5)
+		printf("Sort 3 or 4 values\n");
+	else if (5 < argc && argc < 8)
+		printf("Sort between 5 - 6 values\n");
+	else if (7 < argc && argc < 103)
+		printf("Sort between 7 - 101 values\n");
+	else
+		printf("Sort more than 102 values\n");
 	//Free both stacks
 
 	return (0);
 }
 
-//Error output function
+// Return the amount of values in the stack.
+int	get_stack_size(t_list *stack)
+{
+	int	i;
+
+	i = 0;
+	if (!stack)
+		return (0);
+	while (stack)
+	{
+		stack = stack->next;
+		i++;
+	}
+	return (i);
+}
+
+// Insert the values into the stack.
+t_list	*insert_values(int argc, char *argv[])
+{
+	t_list		*stack_a;
+	long int	num;
+	int			i;
+
+	stack_a = NULL;
+	num = 0;
+	i = 1;
+	//Loop
+	while (i < argc)
+	{
+		//Transform char into int
+		num = ft_atoi(argv[i]);
+		//Check for number overflow
+		if ( INT_MIN > num || num > INT_MAX)
+			error(&stack_a, NULL);
+		//Create of the stack
+		if (i == 1) //Create head for the stack
+			stack_a = stack_add_new((int)num);
+		else //Values after head get added to bottom
+			stack_add_bottom(&stack_a,stack_add_new((int)num));
+		i++;
+	}
+	return (stack_a);
+}
+
+// Add a new value to the stack
+t_list	*stack_add_new(int num)
+{
+	t_list	*new;
+
+	new = malloc(sizeof(new));
+	if (!new)
+		return (NULL);
+	new->num = num;
+	new->next = NULL;
+	return (new);
+}
+
+// Add a value to the bottom of the stack
+void	stack_add_bottom(t_list **stack, t_list *new)
+{
+	t_list	*x;
+
+	if (!new)
+		return ;
+	if (!*stack)
+	{
+		*stack = new;
+		return ;
+	}
+	x = get_last_stack(*stack);
+	x->next = new;
+}
+
+// Retrieve last element of the stack
+t_list	*get_last_stack(t_list *stack)
+{
+	while (stack && stack->next != NULL)
+		stack = stack->next;
+	return (stack);
+}
+
+// In case of error free the stacks and output err message.
+void	error(t_list **stack_a, t_list **stack_b)
+{
+	free(stack_a);
+	free(stack_b);
+	write(2, "Error\n", 6);
+	exit (1);
+}
+
 //Stack value insert
 //Stack free function
 
