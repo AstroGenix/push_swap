@@ -25,6 +25,7 @@ int	main(int argc, char *argv[])
 	stack_b = NULL;
 	stack_a = insert_values(argc, argv);
 	stack_size = get_stack_size(stack_a);
+	rank_values(stack_a, stack_size + 1);
 	//Sort size
 	if (argc == 4 || argc == 5)
 		printf("Sort 3 or 4 values\n");
@@ -35,8 +36,55 @@ int	main(int argc, char *argv[])
 	else
 		printf("Sort more than 102 values\n");
 	//Free both stacks
-
+	free_stack(&stack_a);
+	free_stack(&stack_b);
 	return (0);
+}
+
+// Free a stack and set it to null.
+void	free_stack(t_list **stack)
+{
+	t_list	*temp;
+
+	if (!stack || !(*stack))
+		return ;
+	while (*stack)
+	{
+		temp = (*stack)->next;
+		free(*stack);
+		*stack = temp;
+	}
+	*stack = NULL;
+}
+
+// Will rank the values in stack A to make it easier to order. (ranked top (stack_size) to bottom (1))
+void	rank_values(t_list *stack_a, int stack_size)
+{
+	t_list	*ptr;
+	t_list	*top;
+	int		value;
+
+	while (--stack_size > 0)
+	{
+		ptr = stack_a; // Initialize ptr to head of the stack.
+		value = INT_MIN; // Smallest possible integer.
+		top = NULL; // Used to track top number.
+		while (ptr)
+		{
+			if (ptr->num == INT_MIN && ptr->rank == 0)
+				ptr->rank = 1;
+			if (ptr->num > value && ptr->rank == 0) // Get top number and reset small loop.
+			{
+				value = ptr->num;
+				top = ptr;
+				ptr = stack_a;
+			}
+			else
+				ptr = ptr->next;
+		}
+		if (top != NULL)
+			top->rank = stack_size;
+	}
 }
 
 // Return the amount of values in the stack.
@@ -129,8 +177,6 @@ void	error(t_list **stack_a, t_list **stack_b)
 	exit (1);
 }
 
-//Stack value insert
-//Stack free function
 
 /*source/input_check - start*/
 // main - checks input for incorrect values (accepted values are unique positive or negative numbers).

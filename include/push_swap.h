@@ -31,18 +31,27 @@ typedef struct s_list
 	struct s_list	*next;	
 }	t_list;
 
-
-// Main Functions
+// input_check.c
 bool	check_input(char *argv[]);
 bool	check_number(char *argv);
 int		find_zeros(char *argv);
 bool	check_duplicates(char *argv[]);
 int		dupstring_compare(const char *str1, const char *str2);
+
+// stack creation
 t_list	*insert_values(int argc, char *argv[]);
 t_list	*stack_add_new(int num);
 void	stack_add_bottom(t_list **stack, t_list *new);
 t_list	*get_last_stack(t_list *stack);
+
+// Number simplification
+void	rank_values(t_list *stack_a, int stack_size);
+
+// err handling
 void	error(t_list **stack_a, t_list **stack_b);
-int	get_stack_size(t_list *stack);
+
+// util
+int		get_stack_size(t_list *stack);
+void	free_stack(t_list **stack);
 
 #endif

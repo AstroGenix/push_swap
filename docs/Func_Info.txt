@@ -56,8 +56,8 @@ The function also counts the number of occurrences of 0 in the input values usin
 Finally, if all input values meet the conditions and there are no duplicates, the function returns true.
 
 ---
-//void  assign_rank(t_stack *stack_a, int stack_size)
-So, the assign_rank function is used to assign a rank to each value in the stack_a stack. This rank can be used to easily order and compare the values in the stack without having to directly compare the values themselves, which can be useful in certain sorting algorithms.
+//void  rank_values(t_list *stack_a, int stack_size)
+So, the rank_values function is used to assign a rank to each value in the stack_a stack. This rank can be used to easily order and compare the values in the stack without having to directly compare the values themselves, which can be useful in certain sorting algorithms.
 
 Here's how the function works:
 
