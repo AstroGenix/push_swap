@@ -31,12 +31,26 @@ typedef struct s_list
 	struct s_list	*next;	
 }	t_list;
 
-// input_check.c
+// input checks
 bool	check_input(char *argv[]);
 bool	check_number(char *argv);
 int		find_zeros(char *argv);
 bool	check_duplicates(char *argv[]);
 int		dupstring_compare(const char *str1, const char *str2);
+
+// stack manipulation
+void	swap(t_list *stack);
+void	sa(t_list **stack_a);
+void	sb(t_list **stack_b);
+void	ss(t_list **stack_a, t_list **stack_b);
+void	pa(t_list **stack_a, t_list **stack_b);
+void	pb(t_list **stack_a, t_list **stack_b);
+void	ra(t_list **stack_a);
+void	rb(t_list **stack_b);
+void	rr(t_list **stack_a, t_list **stack_b);
+void	rra(t_list **stack_a);
+void	rrb(t_list **stack_b);
+void	rrr(t_list **stack_a, t_list **stack_b);
 
 // stack creation
 t_list	*insert_values(int argc, char *argv[]);
@@ -53,5 +67,7 @@ void	error(t_list **stack_a, t_list **stack_b);
 // util
 int		get_stack_size(t_list *stack);
 void	free_stack(t_list **stack);
+bool	is_sorted(t_list *stack);
+void	which_sort(t_list **stack_a, t_list **stack_b, int s_size);
 
 #endif

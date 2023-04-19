@@ -26,19 +26,81 @@ int	main(int argc, char *argv[])
 	stack_a = insert_values(argc, argv);
 	stack_size = get_stack_size(stack_a);
 	rank_values(stack_a, stack_size + 1);
-	//Sort size
-	if (argc == 4 || argc == 5)
-		printf("Sort 3 or 4 values\n");
-	else if (5 < argc && argc < 8)
-		printf("Sort between 5 - 6 values\n");
-	else if (7 < argc && argc < 103)
-		printf("Sort between 7 - 101 values\n");
-	else
-		printf("Sort more than 102 values\n");
+	if (!is_sorted(stack_a))
+		which_sort(&stack_a,&stack_b,stack_size);
 	//Free both stacks
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 	return (0);
+}
+
+/*
+* Stack manipulation - start
+*/
+// Swap the top 2 elements of the stack.
+void	swap(t_list *stack)
+{
+	int temp;
+
+	// Switch the numbers
+	temp = stack->num;
+	stack->num = stack->next->num;
+	stack->next->num = temp;
+
+	// Switch the ranks
+	temp = stack->rank;
+	stack->rank = stack->next->rank;
+	stack->next->rank = temp;
+}
+// Swap the first 2 elements at the top of stack a.
+void	sa(t_list **stack_a)
+{
+	swap(*stack_a);
+	write(1,"sa\n",3);
+}
+
+// Swap the first 2 elements at the top of stack b.
+void	sb(t_list **stack_b)
+{
+	swap(*stack_b);
+	write(1,"sb\n",3);
+}
+
+// 'sa' and 'sb' at the same time.
+void	ss(t_list **stack_a,t_list **stack_b)
+{
+	swap(*stack_a);
+	swap(*stack_b);
+	write(1,"ss\n",3);
+}
+/*
+* Stack manipulation - end
+*/
+
+// Choose based on ammount of values which sort to use.
+void	which_sort(t_list **stack_a, t_list **stack_b, int s_size)
+{
+	if (s_size == 2)
+		sa(stack_a);
+	else if (s_size == 3)
+		printf("Sort between 3 values\n");
+	else if (3 < s_size && s_size < 6)
+		printf("Sort between 4 - 5 values\n");
+	else
+		printf("Sort more than 6 values\n");
+}
+
+// Checks if stack is sorted from min to max.
+bool	is_sorted(t_list *stack)
+{
+	while(stack->next)
+	{
+		if (stack->num > stack->next->num)
+			return (false);
+		stack = stack->next;
+	}
+	printf("It do be sorted.\n");
+	return (true);
 }
 
 // Free a stack and set it to null.
@@ -178,7 +240,9 @@ void	error(t_list **stack_a, t_list **stack_b)
 }
 
 
-/*source/input_check - start*/
+/*
+* source/input_check - start
+*/
 // main - checks input for incorrect values (accepted values are unique positive or negative numbers).
 bool	check_input(char *argv[])
 {
@@ -281,4 +345,6 @@ int	dupstring_compare(const char *str1, const char *str2)
 	}
 	return ((unsigned char)str1[i] - (unsigned char)str2[j]); // Return 0 if the strings match.
 }
-/*source/input_check - end*/
+/*
+* source/input_check - end
+*/
