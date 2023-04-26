@@ -28,15 +28,215 @@ int	main(int argc, char *argv[])
 	rank_values(stack_a, stack_size + 1);
 	if (!is_sorted(stack_a))
 		which_sort(&stack_a,&stack_b,stack_size);
-	//Free both stacks
+	// Free both stacks
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 	return (0);
 }
 
+// Find the max rank in the stack.
+int	top_rank(t_list *stack)
+{
+	int	rank;
+
+	rank = stack->rank;
+	// Loop saves biggest rank found
+	while (stack)
+	{
+		if (stack->rank > rank)
+			rank = stack->rank;
+		stack = stack->next;
+	}
+	return (rank);
+}
+
+// Find the minimum rank in the stack.
+int	min_rank(t_list *stack)
+{
+	int	rank;
+
+	rank = stack->rank;
+	// Loop saves biggest rank found
+	while (stack)
+	{
+		if (stack->rank < rank)
+			rank = stack->rank;
+		stack = stack->next;
+	}
+	return (rank);
+}
+
+/*
+* Sorts - start
+* three sort:
+	[1] [3] [2] -> rra & sa
+	[2] [3] [1] -> rra
+	[2] [1] [3] -> sa
+	[3] [1] [2] -> ra
+	[3] [2] [1] -> ra  & sa
+
+* four sort:
+	[1] [2] [4] [3] -> rra & rra & sa & ra & ra  | [2] [1] [3] [4] -> sa
+	[1] [3] [2] [4] -> sa  & rra & sa & ra & ra  | [2] [1] [4] [3] -> pb  & pb  & ss & pa & pa
+	[1] [3] [4] [2] -> rra & sa                  | [2] [3] [1] [4] -> rra & rra & sa & ra
+	[1] [4] [2] [3] -> sa  & ra                  | [2] [3] [4] [1] -> rra
+	[1] [4] [3] [2] -> sa  & ra  & ra & sa & rra | [2] [4] [1] [3] -> sa  & ra  & sa
+												 | [2] [4] [3] [1] -> sa  & rra & sa & ra
+	- - - - - - - - - - - - - - - - - - - - - - -|- - - - - - - - - - - - - - - - - - - - 
+	[3] [1] [2] [4] -> rra & sa  & ra & ra       | [4] [1] [2] [3] -> ra 
+	[3] [1] [4] [2] -> ra  & sa  & ra            | [4] [1] [3] [2] -> ra  & ra  & sa  & rra
+	[3] [2] [1] [4] -> sa  & ra  & sa & rra & sa | [4] [2] [1] [3] -> ra  & sa
+	[3] [2] [4] [1] -> sa  & rra                 | [4] [2] [3] [1] -> rra & sa  & ra
+	[3] [4] [2] [1] -> rra & rra & sa            | [4] [3] [1] [2] -> sa  & rra & rra
+	[3] [4] [1] [2] -> rra & rra                 | [4] [3] [2] [1] -> sa  & rra & rra & sa
+*/
+// Sort a size 3 stack using the rank values.
+void	three_sort(t_list **stack)
+{
+	int	top;
+
+	top = top_rank(*stack);
+	if ((*stack)->rank == top) // [3] [x] [x]
+		ra(stack);
+	else if ((*stack)->next->rank == top) // [x] [3] [x]
+		rra(stack);
+	if ((*stack)->rank > (*stack)->next->rank) // [2] [1] [3] - 3 cannot be first due to first if
+		sa(stack);
+}
+
+// Sort a size 4 stack using rank values.
+void	four_sort(t_list **stack_a, t_list **stack_b)
+{
+	int	top;
+	int	size;
+
+	top = top_rank(*stack_a); //will be 4
+	size = top_rank(*stack_a);
+	/*
+	Do special cases first (one command):
+		[2] [1] [3] [4]
+		[2] [3] [4] [1]
+		[4] [1] [2] [3]
+	Do special case for [2] [1] [4] [3]
+		pb  & pb  & ss & pa & pa
+	Send [4] to stack B and sort stack A
+	*/
+	if ((*stack_a)->rank == 4)
+        ra(stack_a);
+	while (size)
+    {
+        printf("Num[%d]->%d\n", size, (*stack_a)->num);
+        (*stack_a) = (*stack_a)->next;
+        size--;
+    }
+}
+/*
+* Sorts - end
+*/
+
 /*
 * Stack manipulation - start
 */
+// Push the top element of a stack to another.
+void	push(t_list **ping, t_list **pong)
+{
+	t_list	*temp;
+
+	if (*ping == NULL)
+		return ;
+	temp = (*ping)->next;
+	(*ping)->next = *pong;
+	*pong = *ping;
+	*ping = temp;
+}
+
+// Take the first element at the top of B and put it at the top of A.
+void	pa(t_list **stack_a, t_list **stack_b)
+{
+	push(stack_b, stack_a);
+	write(1,"pa\n",3);
+}
+
+// Take the first element at the top of A and put it at the top of B.
+void	pb(t_list **stack_a, t_list **stack_b)
+{
+	push(stack_a, stack_b);
+	write(1,"pb\n",3);
+}
+
+// Rotate the last element to become first.
+void	reverse_rotate(t_list **stack)
+{
+	t_list	*temp;
+	t_list	*last;
+	t_list	*penult;
+
+	last = get_last_stack(*stack); // Get last element of the list.
+	penult = get_penultimate_stack(*stack); // Get the penultimate element of the list.
+	temp = *stack; // Temp points to the first element of the list.
+	*stack = last; // New head of the stack is now the last element.
+	(*stack)->next = temp; // Attach the head (last element) to the previous head.
+	penult->next = NULL; // Detach the penultimate element making it the last.
+}
+
+// Shift down all elements of stack A by 1.
+void	rra(t_list **stack_a)
+{
+	reverse_rotate(stack_a);
+	write(1,"rra\n",4);
+}
+
+// Shift down all elements of stack B by 1/
+void	rrb(t_list **stack_b)
+{
+	reverse_rotate(stack_b);
+	write(1,"rrb\n",4);
+}
+
+// 'rra' and 'rrb' at the same time.
+void	rrr(t_list **stack_a, t_list **stack_b)
+{
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_b);
+	write(1,"rrr\n",4);
+}
+
+// Rotate the first element to become last.
+void	rotate(t_list **stack)
+{
+	t_list	*temp;
+	t_list	*last;
+
+	temp = *stack; // Temp points to first element.
+	*stack = (*stack)->next; // Head of stack becomes the 2nd element.
+	last = get_last_stack(*stack);
+	temp->next = NULL; // Detach the 1st element from the list.
+	// Temp is now a standalone node holding the (now previous) 1st element of the list.
+	last->next = temp; // Makes the 1st node the last.
+}
+
+// Shift up all elements of stack A by 1.
+void	ra(t_list **stack_a)
+{
+	rotate(stack_a);
+	write(1,"ra\n",3);
+}
+
+// Shift up all elements of stack B by 1.
+void	rb(t_list **stack_b)
+{
+	rotate(stack_b);
+	write(1,"rb\n",3);
+}
+
+// 'ra' and 'rb' at the same time.
+void	rr(t_list **stack_a, t_list **stack_b)
+{
+	rotate(stack_a);
+	rotate(stack_b);
+	write(1,"rr\n",3);
+}
+
 // Swap the top 2 elements of the stack.
 void	swap(t_list *stack)
 {
@@ -83,11 +283,11 @@ void	which_sort(t_list **stack_a, t_list **stack_b, int s_size)
 	if (s_size == 2)
 		sa(stack_a);
 	else if (s_size == 3)
-		printf("Sort between 3 values\n");
-	else if (3 < s_size && s_size < 6)
-		printf("Sort between 4 - 5 values\n");
+		three_sort(stack_a);
+	else if (s_size == 4)
+		four_sort(stack_a,stack_b);
 	else
-		printf("Sort more than 6 values\n");
+		printf("Sort more than 5 values\n");
 }
 
 // Checks if stack is sorted from min to max.
@@ -209,7 +409,7 @@ t_list	*stack_add_new(int num)
 // Add a value to the bottom of the stack
 void	stack_add_bottom(t_list **stack, t_list *new)
 {
-	t_list	*x;
+	t_list	*last;
 
 	if (!new)
 		return ;
@@ -218,14 +418,22 @@ void	stack_add_bottom(t_list **stack, t_list *new)
 		*stack = new;
 		return ;
 	}
-	x = get_last_stack(*stack);
-	x->next = new;
+	last = get_last_stack(*stack);
+	last->next = new;
 }
 
 // Retrieve last element of the stack
 t_list	*get_last_stack(t_list *stack)
 {
 	while (stack && stack->next != NULL)
+		stack = stack->next;
+	return (stack);
+}
+
+// Retrieve the penultimate element of the stack
+t_list	*get_penultimate_stack(t_list *stack)
+{
+	while (stack && stack->next && stack->next->next != NULL)
 		stack = stack->next;
 	return (stack);
 }
