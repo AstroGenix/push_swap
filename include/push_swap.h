@@ -57,7 +57,7 @@ void	rrr(t_list **stack_a, t_list **stack_b);
 
 // sorts
 void	three_sort(t_list **stack);
-void	four_sort(t_list **stack_a, t_list **stack_b);
+void	four_sort(t_list **stack_a, t_list **stack_b, int size);
 
 // stack creation
 t_list	*insert_values(int argc, char *argv[]);

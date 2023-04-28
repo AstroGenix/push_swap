@@ -105,31 +105,41 @@ void	three_sort(t_list **stack)
 }
 
 // Sort a size 4 stack using rank values.
-void	four_sort(t_list **stack_a, t_list **stack_b)
+void	four_sort(t_list **stack_a, t_list **stack_b, int size)
 {
 	int	top;
-	int	size;
 
 	top = top_rank(*stack_a); //will be 4
-	size = top_rank(*stack_a);
-	/*
-	Do special cases first (one command):
-		[2] [1] [3] [4]
-		[2] [3] [4] [1]
-		[4] [1] [2] [3]
-	Do special case for [2] [1] [4] [3]
-		pb  & pb  & ss & pa & pa
-	Send [4] to stack B and sort stack A
-	*/
-	if ((*stack_a)->rank == 4)
-        ra(stack_a);
+	if ((*stack_a)->rank == 2 && (*stack_a)->next->rank == 1 && (*stack_a)->next->next->rank == 3)
+		sa(stack_a); // Specific case 1 [2] [1] [3] [4]
+	else if ((*stack_a)->rank == 2 && (*stack_a)->next->rank == 3 && (*stack_a)->next->next->rank == 4)
+		rra(stack_a); // Specific case 1 [2] [3] [4] [1]
+	else if ((*stack_a)->next->next->next->rank == 4) // [x] [x] [x] [4]
+		rra(stack_a);
+	else if ((*stack_a)->next->rank == 4) // [x] [4] [x] [x]
+		ra(stack_a);
+	else if ((*stack_a)->next->next->rank == 4) // [x] [x] [4] [x]
+	{
+		rra(stack_a);
+		rra(stack_a);
+	}
+	if (is_sorted((*stack_a)) == true)
+	    return ;
+	pb(stack_a,stack_b);
+	three_sort(stack_a);
+	pa(stack_a,stack_b);
+	ra(stack_a);
+	/* To display the numbers
 	while (size)
     {
         printf("Num[%d]->%d\n", size, (*stack_a)->num);
         (*stack_a) = (*stack_a)->next;
         size--;
     }
+	*/
 }
+
+
 /*
 * Sorts - end
 */
@@ -285,7 +295,7 @@ void	which_sort(t_list **stack_a, t_list **stack_b, int s_size)
 	else if (s_size == 3)
 		three_sort(stack_a);
 	else if (s_size == 4)
-		four_sort(stack_a,stack_b);
+		four_sort(stack_a,stack_b,s_size);
 	else
 		printf("Sort more than 5 values\n");
 }
@@ -299,7 +309,6 @@ bool	is_sorted(t_list *stack)
 			return (false);
 		stack = stack->next;
 	}
-	printf("It do be sorted.\n");
 	return (true);
 }
 
