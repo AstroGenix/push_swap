@@ -32,7 +32,7 @@ void	which_sort(t_stack **a, t_stack **b, int s_size)
 	else if (s_size == 3)
 		three_sort(a);
 	else if (s_size == 4)
-		four_sort(a,b,s_size);
+		four_sort(a,b);
 	else
 		big_sort(a,b,s_size);
 }
@@ -52,11 +52,8 @@ void	three_sort(t_stack **stack)
 }
 
 // Sort a size 4 stack using rank values.
-void	four_sort(t_stack **a, t_stack **b, int size)
+void	four_sort(t_stack **a, t_stack **b)
 {
-	int	top;
-
-	top = top_rank(*a); // will be 4.
 	if ((*a)->rank == 2 && (*a)->next->rank == 1 && (*a)->next->next->rank == 3)
 		sa(a); // Specific case 1 [2] [1] [3] [4]
 	else if ((*a)->rank == 2 && (*a)->next->rank == 3 && (*a)->next->next->rank == 4)

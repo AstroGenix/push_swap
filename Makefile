@@ -12,18 +12,18 @@
 
 CC     = cc
 CFLAGS = -Wall -Werror -Wextra
-NAME   = push_swap
+NAME   = push_swap.a
 
-SOURCES  = main.c source/input_check.c source/utils.c source/push.c              \
+SOURCES  = main.c source/input_check.c source/utils.c source/push.c            \
 			source/rotate.c source/swap.c source/reverse_rotate.c              \
-			soruce/stack_utils.c source/stack_create.c source/sort.c
+			source/stack_utils.c source/stack_create.c source/sort.c
 
 OBJECTS = $(SOURCES:.c=.o) 
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS) 
-		ar -rcs $(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
 clean:
 		rm -f $(OBJECTS)

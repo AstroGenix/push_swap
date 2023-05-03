@@ -19,9 +19,6 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <limits.h>
-// 42 Libraries
-# include "libft/libft.h"
-# include "ft_printf/includes/ft_printf.h"
 
 // Stack Structure
 typedef struct s_stack
@@ -65,7 +62,7 @@ void	rrr(t_stack **a, t_stack **b); //        ✔
 
 // Sorts                                                  Status
 void	three_sort(t_stack **a);//                          ✔
-void	four_sort(t_stack **a, t_stack **b, int size);//    ✔
+void	four_sort(t_stack **a, t_stack **b);//    ✔
 void	big_sort(t_stack **a, t_stack **b, int size);//     ✔
 
 // Sort utils                                                                       Status
