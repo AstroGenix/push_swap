@@ -24,60 +24,81 @@
 # include "ft_printf/includes/ft_printf.h"
 
 // Stack Structure
-typedef struct s_list
+typedef struct s_stack
 {
 	int				num;
 	int				rank;
-	struct s_list	*next;	
-}	t_list;
+	int				pos;
+	int				target_pos;
+	int				cost_a;
+	int				cost_b;
+	struct s_stack	*next;	
+}	t_stack;
 
-// input checks
-bool	check_input(char *argv[]);
-bool	check_number(char *argv);
-int		find_zeros(char *argv);
-bool	check_duplicates(char *argv[]);
-int		dupstring_compare(const char *str1, const char *str2);
+// Input checks                                                    Status
+bool	check_input(char *argv[]); //                                ✔
+bool	check_number(char *argv); //                                 ✔
+int		find_zeros(char *argv); //                                   ✔
+bool	check_duplicates(char *argv[]); //                           ✔
+int		dupstring_compare(const char *str1, const char *str2); //    ✔
 
-// stack manipulation
-void	swap(t_list *stack);
-void	rotate(t_list **stack);
-void	reverse_rotate(t_list **stack);
-void	push(t_list **ping, t_list **pong);
-void	sa(t_list **stack_a);
-void	sb(t_list **stack_b);
-void	ss(t_list **stack_a, t_list **stack_b);
-void	pa(t_list **stack_a, t_list **stack_b);
-void	pb(t_list **stack_a, t_list **stack_b);
-void	ra(t_list **stack_a);
-void	rb(t_list **stack_b);
-void	rr(t_list **stack_a, t_list **stack_b);
-void	rra(t_list **stack_a);
-void	rrb(t_list **stack_b);
-void	rrr(t_list **stack_a, t_list **stack_b);
+// Stack manipulation                                      Status
+void	swap(t_stack *stack); //                             ✔
+void	rotate(t_stack **stack); //                          ✔
+void	reverse_rotate(t_stack **stack); //                  ✔
+void	push(t_stack **ping, t_stack **pong); //             ✔
+void	push_all(t_stack **a, t_stack **b, int size); //     ✘
+void	shift_order(t_stack **a); //                         ✘
 
-// sorts
-void	three_sort(t_list **stack);
-void	four_sort(t_list **stack_a, t_list **stack_b, int size);
+// Stack operations                            Status
+void	sa(t_stack **a); //                      ✔
+void	sb(t_stack **b); //                      ✔
+void	ss(t_stack **a, t_stack **b); //         ✔
+void	pa(t_stack **a, t_stack **b); //         ✔
+void	pb(t_stack **a, t_stack **b); //         ✔
+void	ra(t_stack **a); //                      ✔
+void	rb(t_stack **a); //                      ✔
+void	rr(t_stack **a, t_stack **b); //         ✔
+void	rra(t_stack **a); //                     ✔
+void	rrb(t_stack **b); //                     ✔
+void	rrr(t_stack **a, t_stack **b); //        ✔
 
-// stack creation
-t_list	*insert_values(int argc, char *argv[]);
-t_list	*stack_add_new(int num);
-void	stack_add_bottom(t_list **stack, t_list *new);
-t_list	*get_last_stack(t_list *stack);
-t_list	*get_penultimate_stack(t_list *stack);
+// Sorts                                                  Status
+void	three_sort(t_stack **a);//                          ✔
+void	four_sort(t_stack **a, t_stack **b, int size);//    ✔
+void	big_sort(t_stack **a, t_stack **b, int size);//     ✔
 
-// Number simplification
-void	rank_values(t_list *stack_a, int stack_size);
+// Sort utils                                                                       Status
+void	target_position(t_stack **a, t_stack **b);//                                  ✘
+void	fetch_position(t_stack **stack);//                                            ✘
+int		fetch_target(t_stack **a, int b_rank, int t_rank, int t_position);//          ✘
+void	get_cost(t_stack **a, t_stack **b);//                                         ✘
+void	do_cheapest_move(t_stack **a, t_stack **b);//                                 ✘
+void	move(t_stack **a, t_stack **b, int cost_a, int cost_b);//                     ✘
+int		low_rank_pos(t_stack **stack);//                                              ✘
+void	rr_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b);//                ✘
+void	r_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b);//                 ✘
+void	rotate_a(t_stack **a, int *cost);//                                           ✘
+void	rotate_b(t_stack **b, int *cost);//                                           ✘
 
-// err handling
-void	error(t_list **stack_a, t_list **stack_b);
+// Stack creation                                                Status
+t_stack	*insert_values(int argc, char *argv[]); //                 ✔
+t_stack	*stack_add_new(int num); //                                ✔
+void	stack_add_bottom(t_stack **stack, t_stack *new); //        ✔
+t_stack	*fetch_last_stack(t_stack *stack); //                      ✔
+t_stack	*fetch_penultimate_stack(t_stack *stack); //               ✔
 
-// util
-int		get_stack_size(t_list *stack);
-void	free_stack(t_list **stack);
-bool	is_sorted(t_list *stack);
-void	which_sort(t_list **stack_a, t_list **stack_b, int s_size);
-int		top_rank(t_list *stack);
-int		min_rank(t_list *stack);
+// Number simplification                            Status
+void	rank_values(t_stack *a, int stack_size); //   ✔
 
+// Error handling                            Status
+void	error(t_stack **a, t_stack **b); //    ✔
+
+// Utilitary                                                   Status
+int		fetch_stack_size(t_stack *stack); //                     ✔
+void	free_stack(t_stack **stack); //                          ✔
+bool	is_sorted(t_stack *stack); //                            ✔
+void	which_sort(t_stack **a, t_stack **b, int s_size); //     ✔
+int		top_rank(t_stack *stack); //                             ✔
+int		abs_num(int num); //                                     ✔
 #endif
