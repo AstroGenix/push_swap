@@ -14,9 +14,11 @@ CC     = cc
 CFLAGS = -Wall -Werror -Wextra
 NAME   = push_swap.a
 
-SOURCES  = main.c source/input_check.c source/utils.c source/push.c            \
-			source/rotate.c source/swap.c source/reverse_rotate.c              \
-			source/stack_utils.c source/stack_create.c source/sort.c
+SOURCES  = main.c source/cost_utils.c source/cost.c source/input_check.c         \
+			source/position.c source/push.c source/reverse_rotate.c              \
+			source/rotate.c source/sort_utils.c source/sort.c                    \
+			source/stack_create.c source/stack_utils.c source/swap.c             \
+			source/utils.c
 
 OBJECTS = $(SOURCES:.c=.o) 
 

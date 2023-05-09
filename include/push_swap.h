@@ -23,12 +23,12 @@
 // Stack Structure
 typedef struct s_stack
 {
-	int				num;
-	int				rank;
-	int				pos;
-	int				target_pos;
-	int				cost_a;
-	int				cost_b;
+	int				num; // The user input is stored here.
+	int				rank; // A rank attributed to the number to make it easier to sort.
+	int				pos; // The current position of the element.
+	int				target_pos; // Where it should be in stack A.
+	int				cost_a; // The cost to get it to stack A.
+	int				cost_b; // The cost to get it to the top o stack B.
 	struct s_stack	*next;	
 }	t_stack;
 
@@ -44,8 +44,8 @@ void	swap(t_stack *stack); //                             ✔
 void	rotate(t_stack **stack); //                          ✔
 void	reverse_rotate(t_stack **stack); //                  ✔
 void	push(t_stack **ping, t_stack **pong); //             ✔
-void	push_all(t_stack **a, t_stack **b, int size); //     ✘
-void	shift_order(t_stack **a); //                         ✘
+void	push_all(t_stack **a, t_stack **b, int size); //     ✔
+void	shift_order(t_stack **a); //                         ✔
 
 // Stack operations                            Status
 void	sa(t_stack **a); //                      ✔
@@ -62,21 +62,21 @@ void	rrr(t_stack **a, t_stack **b); //        ✔
 
 // Sorts                                                  Status
 void	three_sort(t_stack **a);//                          ✔
-void	four_sort(t_stack **a, t_stack **b);//    ✔
+void	four_sort(t_stack **a, t_stack **b);//              ✔
 void	big_sort(t_stack **a, t_stack **b, int size);//     ✔
 
 // Sort utils                                                                       Status
-void	target_position(t_stack **a, t_stack **b);//                                  ✘
-void	fetch_position(t_stack **stack);//                                            ✘
-int		fetch_target(t_stack **a, int b_rank, int t_rank, int t_position);//          ✘
-void	get_cost(t_stack **a, t_stack **b);//                                         ✘
-void	do_cheapest_move(t_stack **a, t_stack **b);//                                 ✘
-void	move(t_stack **a, t_stack **b, int cost_a, int cost_b);//                     ✘
-int		low_rank_pos(t_stack **stack);//                                              ✘
-void	rr_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b);//                ✘
-void	r_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b);//                 ✘
-void	rotate_a(t_stack **a, int *cost);//                                           ✘
-void	rotate_b(t_stack **b, int *cost);//                                           ✘
+void	target_position(t_stack **a, t_stack **b);//                                  ✔
+void	fetch_position(t_stack **stack);//                                            ✔
+int		fetch_target(t_stack **a, int b_rank, int t_rank, int t_position);//          ✔
+void	get_cost(t_stack **a, t_stack **b);//                                         ✔
+void	do_cheapest_move(t_stack **a, t_stack **b);//                                 ✔
+void	move(t_stack **a, t_stack **b, int cost_a, int cost_b);//                     ✔
+int		low_rank_pos(t_stack **stack);//                                              ✔
+void	rr_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b);//                ✔
+void	r_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b);//                 ✔
+void	rotate_a(t_stack **a, int *cost);//                                           ✔
+void	rotate_b(t_stack **b, int *cost);//                                           ✔
 
 // Stack creation                                                Status
 t_stack	*insert_values(int argc, char *argv[]); //                 ✔
@@ -88,8 +88,8 @@ t_stack	*fetch_penultimate_stack(t_stack *stack); //               ✔
 // Number simplification                            Status
 void	rank_values(t_stack *a, int stack_size); //   ✔
 
-// Error handling                            Status
-void	error(t_stack **a, t_stack **b); //    ✔
+// Error handling                                   Status
+void	error(t_stack **a, t_stack **b); //           ✔
 
 // Utilitary                                                   Status
 int		fetch_stack_size(t_stack *stack); //                     ✔
