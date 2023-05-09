@@ -56,3 +56,17 @@ void	shift_order(t_stack **a)
 		}
 	}
 }
+
+// This function doesn't belong here and should be in input_check.c but due to 5 limit function it is here.
+// Make sure 01 and 1 are not the same.
+bool    check_repeat(char **argv, int number, int skip)
+{
+    int i;
+    while(argv[i])
+    {
+        if (ft_atoi(argv[i]) == number && i != skip)
+            return (false);
+        i++;
+    }
+    return (true);
+}

@@ -1,4 +1,4 @@
-#include "..\include\push_swap.h"
+#include "../include/push_swap.h"
 
 // Select the best move to get stack B element to the correct position in stack A.
 void	move(t_stack **a, t_stack **b, int cost_a, int cost_b)

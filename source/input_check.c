@@ -1,11 +1,16 @@
 #include "../include/push_swap.h"
 
+/*
+Cannot contain duplicate numbers (the following is not allowed)
+0 == 00 | 1 == 01 | -1 == -01 | 
+*/
+
 // Checks input for incorrect values (accepted values are unique positive or negative numbers).
 bool	check_input(char *argv[])
 {
 	int				i;
 	int				zeros;
-	unsigned int	num;
+	int	num;
 
 	i = 1;
 	zeros = 0;
@@ -14,8 +19,10 @@ bool	check_input(char *argv[])
 		num = ft_atoi(argv[i]);
 		if (check_number(argv[i]) == false) // If return is false -> argv[i] wasn't a number.
 			return (false);
-		if (num > INT_MAX) // Make sure argv[i] isn't bigger than MAX_INT.
+		if (num > (int)INT_MAX && num < (int)INT_MIN) // Make sure argv[i] isn't bigger than MAX_INT and smaller than INT_MIN.
 			return (false);
+		if (check_repeat(argv,num,i) == false)
+		    return (false);
 		zeros += find_zeros(argv[i]); // Func will return the ammount of single 0's found.
 		i++;
 	}
@@ -50,7 +57,7 @@ int	find_zeros(char *argv)
 	i = 0;
 	if (argv[i] == '+' || argv[i] == '-') // Fast forward any signs.
 		i++;
-	while (argv[i] == 0 && argv[i] != '\0') // Count until the end of the number.
+	while (argv[i] && argv[i] == '0') // Count until the end of the number.
 		i++;
 	if (argv[i] != '\0') // If it did reach the end then success.
 		return (0);

@@ -38,6 +38,7 @@ bool	check_number(char *argv); //                                 ✔
 int		find_zeros(char *argv); //                                   ✔
 bool	check_duplicates(char *argv[]); //                           ✔
 int		dupstring_compare(const char *str1, const char *str2); //    ✔
+bool    check_repeat(char **argv, int number, int skip); //          ✔
 
 // Stack manipulation                                      Status
 void	swap(t_stack *stack); //                             ✔
@@ -98,4 +99,5 @@ bool	is_sorted(t_stack *stack); //                            ✔
 void	which_sort(t_stack **a, t_stack **b, int s_size); //     ✔
 int		top_rank(t_stack *stack); //                             ✔
 int		abs_num(int num); //                                     ✔
+int		ft_atoi(const char *nptr); //                            ✔
 #endif

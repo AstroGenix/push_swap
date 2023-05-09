@@ -10,27 +10,41 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC     = cc
+# Compiler and flags.
+CC = cc
 CFLAGS = -Wall -Werror -Wextra
-NAME   = push_swap.a
 
-SOURCES  = main.c source/cost_utils.c source/cost.c source/input_check.c         \
-			source/position.c source/push.c source/reverse_rotate.c              \
-			source/rotate.c source/sort_utils.c source/sort.c                    \
-			source/stack_create.c source/stack_utils.c source/swap.c             \
-			source/utils.c
+# Executable name.
+TARGET = push_swap.a
 
-OBJECTS = $(SOURCES:.c=.o) 
+# Soures to compile.
+SOURCES = $(wildcard source/*.c) main.c
 
-all: $(NAME)
+# Dir and object files to be created.
+OBJ_DIR = objects
+OBJECTS = $(patsubst source/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
 
-$(NAME): $(OBJECTS) 
-		$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+# Define these targets as "phony" so Make doesn't confuse them with files.
+.PHONY: all clean fclean re
+
+all: $(TARGET)
+
+# Build the executable by linking all the files
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@
+
+# Build each object file
+$(OBJ_DIR)/%.o: source/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Create the dir if it isn't there
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
 clean:
-		rm -f $(OBJECTS) *.a
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-		rm -f $(NAME)
+	rm -f $(TARGET)
 
 re: fclean all
