@@ -62,10 +62,12 @@ void	shift_order(t_stack **a)
 bool    check_repeat(char **argv, int number, int skip)
 {
     int i;
-    while(argv[i])
+
+	i = 1;
+    while(argv[i] != NULL)
     {
         if (ft_atoi(argv[i]) == number && i != skip)
-            return (false);
+			return (false);
         i++;
     }
     return (true);

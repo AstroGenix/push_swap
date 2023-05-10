@@ -8,9 +8,9 @@ Cannot contain duplicate numbers (the following is not allowed)
 // Checks input for incorrect values (accepted values are unique positive or negative numbers).
 bool	check_input(char *argv[])
 {
-	int				i;
-	int				zeros;
-	int	num;
+	int			i;
+	int			zeros;
+	long long	num;
 
 	i = 1;
 	zeros = 0;
@@ -19,7 +19,7 @@ bool	check_input(char *argv[])
 		num = ft_atoi(argv[i]);
 		if (check_number(argv[i]) == false) // If return is false -> argv[i] wasn't a number.
 			return (false);
-		if (num > (int)INT_MAX && num < (int)INT_MIN) // Make sure argv[i] isn't bigger than MAX_INT and smaller than INT_MIN.
+		if (num >= 2147483647 || num <= -2147483648) // Make sure argv[i] isn't bigger than MAX_INT and smaller than INT_MIN.
 			return (false);
 		if (check_repeat(argv,num,i) == false)
 		    return (false);
