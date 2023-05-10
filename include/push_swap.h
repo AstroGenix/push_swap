@@ -100,4 +100,5 @@ void	which_sort(t_stack **a, t_stack **b, int s_size); //     ✔
 int		top_rank(t_stack *stack); //                             ✔
 int		abs_num(int num); //                                     ✔
 int		ft_atoi(const char *nptr); //                            ✔
+char	**ft_split(char const *s, char c);
 #endif
