@@ -9,7 +9,7 @@ t_stack	*insert_values(int argc, char *argv[])
 
 	a = NULL;
 	num = 0;
-	i = 1;
+	i = 0;
 	//Loop
 	while (i < argc)
 	{
@@ -19,7 +19,7 @@ t_stack	*insert_values(int argc, char *argv[])
 		if ( INT_MIN > num || num > INT_MAX)
 			error(&a, NULL);
 		//Create of the stack
-		if (i == 1) //Create head for the stack
+		if (i == 0) //Create head for the stack
 			a = stack_add_new((int)num);
 		else //Values after head get added to bottom
 			stack_add_bottom(&a,stack_add_new((int)num));

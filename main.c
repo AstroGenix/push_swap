@@ -12,29 +12,36 @@
 
 #include "include/push_swap.h"
 
+// Helper function 
+static int arr_size(char **arr)
+{
+	int i = 0;
+	while (arr[i])
+		i++;
+	return (i);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_stack	*a;
 	t_stack	*b;
 	int		stack_size;
 	char	**split;
+	int		len;
 
 	if (argc < 2) // If /a.out is the only input exit.
 		return (0);
-	if (argc == 2)
-	{
+	else if (argc == 2)
 		split = ft_split(argv[1], ' ');
-		if (split == NULL)
-			error(NULL, NULL);
-	}
 	else
-		split = argv;
+		error(NULL, NULL);
 	if (check_input(split) == false) // Check input for abnormalities or duplicates (unique numbers only).
 		error(NULL, NULL);
+	len = arr_size(split);
+	a = insert_values(len, split);
 	b = NULL;
-	a = insert_values(argc, split);
 	stack_size = fetch_stack_size(a);
-	rank_values(a, stack_size + 1);
+	rank_values(a, stack_size);
 	if (!is_sorted(a))
 		which_sort(&a,&b,stack_size);
 	// Free both stacks.
@@ -95,8 +102,16 @@ int	main(int argc, char *argv[])
 	free_stack(&b);
 	return (0);
 }
-So finally this works like intended meaning ./push_swap.a 3 2 1 works.
-The problem is if i put it all as if it all one string like ./push_swap "3 2 1" it will not work.
-I understand it reads the input as one string and that I should use ft_split function to separate the ' '.
-How would I go about doing that.
+The part that works is like this.
+./push_swap 3 2 1 -> works as intended, argv[0] = './push_swap' argv[1] = 3
+This is what my code was doing and it was working still is. However problem arrives if I have
+to do something like ./push_swap "3 2 1" which should also work however it goes through a split func
+that turns it into argv[0] = 3 argv[1] = 2.
+And so there is a missmatch.
+
+./push_swap 3 2 1     | ./push_swap "3 2 1"
+argv[0]='./push_swap' | goes into ft_split
+argv[1]='3'           |argv[0]='3'
+argv[2]='2'           |argv[1]='2'
+argv[3]='1'           |argv[2]='1'
 */

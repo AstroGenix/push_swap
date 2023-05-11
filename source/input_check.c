@@ -12,7 +12,7 @@ bool	check_input(char *argv[])
 	int			zeros;
 	long long	num;
 
-	i = 1;
+	i = 0;
 	zeros = 0;
 	while (argv[i]) // Loop to check for not numbers.
 	{
