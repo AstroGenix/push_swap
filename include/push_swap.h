@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <string.h>
 
 // Stack Structure
 typedef struct s_stack
