@@ -19,7 +19,6 @@ int	main(int argc, char *argv[])
 	int		stack_size;
 	char	**split;
 
-	split = NULL;
 	if (argc < 2) // If /a.out is the only input exit.
 		return (0);
 	if (argc == 2)
@@ -28,6 +27,8 @@ int	main(int argc, char *argv[])
 		if (split == NULL)
 			error(NULL, NULL);
 	}
+	else
+		split = argv;
 	if (check_input(split) == false) // Check input for abnormalities or duplicates (unique numbers only).
 		error(NULL, NULL);
 	b = NULL;
