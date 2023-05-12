@@ -32,11 +32,12 @@ int	main(int argc, char *argv[])
 	if (argc < 2) // If /a.out is the only input exit.
 		return (0);
 	else if (argc > 2)
-		error(NULL, NULL);
+		error(NULL, NULL, 0);
 	split = ft_split(argv[1], ' ');
-	if (check_input(split) == false) // Check input for abnormalities or duplicates (unique numbers only).
-		error(NULL, NULL);
 	len = arr_size(split);
+	if (len == 1)
+		return (0);
+	check_input(split); // Check input for abnormalities or duplicates (unique numbers only).
 	a = insert_values(len, split);
 	b = NULL;
 	stack_size = fetch_stack_size(a);

@@ -34,7 +34,7 @@ typedef struct s_stack
 }	t_stack;
 
 // Input checks                                                    Status
-bool	check_input(char *argv[]); //                                ✔
+void	check_input(char *argv[]); //                                ✔
 bool	check_number(char *argv); //                                 ✔
 int		find_zeros(char *argv); //                                   ✔
 bool	check_duplicates(char *argv[]); //                           ✔
@@ -91,7 +91,7 @@ t_stack	*fetch_penultimate_stack(t_stack *stack); //               ✔
 void	rank_values(t_stack *a, int stack_size); //   ✔
 
 // Error handling                                   Status
-void	error(t_stack **a, t_stack **b); //           ✔
+void	error(t_stack **a, t_stack **b, int x); //           ✔
 
 // Utilitary                                                   Status
 int		fetch_stack_size(t_stack *stack); //                     ✔

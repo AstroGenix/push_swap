@@ -9,13 +9,20 @@ int	abs_num(int num)
 }
 
 // In case of error free the stacks and output error message.
-void	error(t_stack **a, t_stack **b)
+void	error(t_stack **a, t_stack **b, int x)
 {
 	if (a == NULL || *a != NULL) // Check if the pointer is NULL or that the pointer isn't pointing to a NULL.
 		free_stack(a);
 	if (b == NULL || *b != NULL)
 		free_stack(b);
-	write(1,"Error\n",6);
+	if (x == 0)
+		write(1, "Error: Input contains non-integer.\n", 35);
+	else if (x == 1)
+		write(1, "Error: Input contains integer bigger/smaller than allowed.\n", 59);
+	else if (x == 2)
+		write(1, "Error: Input contais duplicate values.\n", 39);
+	else if (x == 3)
+		write(1, "Error: Input contais duplicate values.\n", 39);
 	exit(1);
 }
 
@@ -38,7 +45,7 @@ void	free_stack(t_stack **stack)
 // Checks if stack is sorted from min to max.
 bool	is_sorted(t_stack *stack)
 {
-	while(stack->next)
+	while (stack->next)
 	{
 		if (stack->num > stack->next->num)
 			return (false);
@@ -52,7 +59,7 @@ int	ft_atoi(const char *nptr)
 {
 	int	i;
 	int	ngtv;
-	int	result;
+	long long int	result;
 
 	i = 0;
 	ngtv = 1;
@@ -71,5 +78,7 @@ int	ft_atoi(const char *nptr)
 		result = (nptr[i] - '0') + (result * 10);
 		i++;
 	}
+	if ((ngtv * result) > 2147483647 || (ngtv * result) > -2147483648)
+		error(NULL, NULL, 1);
 	return (result * ngtv);
 }

@@ -6,11 +6,11 @@ Cannot contain duplicate numbers (the following is not allowed)
 */
 
 // Checks input for incorrect values (accepted values are unique positive or negative numbers).
-bool	check_input(char *argv[])
+void	check_input(char *argv[])
 {
 	int			i;
 	int			zeros;
-	long long	num;
+	long int	num;
 
 	i = 0;
 	zeros = 0;
@@ -18,17 +18,16 @@ bool	check_input(char *argv[])
 	{
 		num = ft_atoi(argv[i]);
 		if (check_number(argv[i]) == false) // If return is false -> argv[i] wasn't a number.
-			return (false);
-		if (num >= 2147483647 || num <= -2147483648) // Make sure argv[i] isn't bigger than MAX_INT and smaller than INT_MIN.
-			return (false);
-		if (check_repeat(argv,num,i) == false)
-		    return (false);
+			error(NULL, NULL, 0);
+		if (num > INT_MAX || num < INT_MIN) // Make sure argv[i] isn't bigger than MAX_INT and smaller than INT_MIN.
+			error(NULL, NULL, 1);
+		if (check_repeat(argv,num,i) == false) // Make sure 01 and 1 aren't there.
+			error(NULL, NULL, 2);
 		zeros += find_zeros(argv[i]); // Func will return the ammount of single 0's found.
 		i++;
 	}
 	if (check_duplicates(argv) == true || zeros > 1) // Checks for duplicates.
-		return (false);
-	return (true);
+		error(NULL, NULL, 2);
 }
 
 // Checks if input contains only a number.

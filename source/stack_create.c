@@ -17,7 +17,7 @@ t_stack	*insert_values(int argc, char *argv[])
 		num = ft_atoi(argv[i]);
 		//Check for number overflow
 		if ( INT_MIN > num || num > INT_MAX)
-			error(&a, NULL);
+			error(&a, NULL, 1);
 		//Create of the stack
 		if (i == 0) //Create head for the stack
 			a = stack_add_new((int)num);
