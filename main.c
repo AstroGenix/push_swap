@@ -31,7 +31,7 @@ int	main(int argc, char *argv[])
 
 	if (argc < 2) // If /a.out is the only input exit.
 		return (0);
-	else if (argc > 2)
+	else if (argc > 2 || !*argv[1] || strchr(argv[1],' '))
 		error(NULL, NULL, 0);
 	split = ft_split(argv[1], ' ');
 	len = arr_size(split);
