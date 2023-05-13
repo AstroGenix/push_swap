@@ -21,16 +21,16 @@ void	check_input(char *argv[], int flag)
 	{
 		num = ft_atoi(argv[i]);
 		if (check_number(argv[i]) == false) // If return is false -> argv[i] wasn't a number.
-			error(NULL, NULL, 0);
+			error(NULL, NULL);
 		if (num > INT_MAX || num < INT_MIN) // Make sure argv[i] isn't bigger than MAX_INT and smaller than INT_MIN.
-			error(NULL, NULL, 1);
+			error(NULL, NULL);
 		if (check_repeat(argv,num,i) == false) // Make sure 01 and 1 aren't there.
-			error(NULL, NULL, 2);
+			error(NULL, NULL);
 		zeros += find_zeros(argv[i]); // Func will return the ammount of single 0's found.
 		i++;
 	}
 	if (check_duplicates(argv) == true || zeros > 1) // Checks for duplicates.
-		error(NULL, NULL, 2);
+		error(NULL, NULL);
 }
 
 // Checks if input contains only a number.

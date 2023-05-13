@@ -38,7 +38,7 @@ int	main(int argc, char *argv[])
 	else
 	{
 		if (args_check(argc, argv) == false) // Check arguments
-			error(NULL, NULL, 3);
+			error(NULL, NULL);
 		split = ft_split(argv[1], ' '); //Split args 
 		len = arr_size(split);
 		check_input(split, 0); // Check input for abnormalities or duplicates (unique numbers only).

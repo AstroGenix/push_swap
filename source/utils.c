@@ -9,20 +9,13 @@ int	abs_num(int num)
 }
 
 // In case of error free the stacks and output error message.
-void	error(t_stack **a, t_stack **b, int x)
+void	error(t_stack **a, t_stack **b)
 {
 	if (a == NULL || *a != NULL) // Check if the pointer is NULL or that the pointer isn't pointing to a NULL.
 		free_stack(a);
 	if (b == NULL || *b != NULL)
 		free_stack(b);
-	if (x == 0)
-		write(2, "Error: Input contains non-integer.\n", 35);
-	else if (x == 1)
-		write(2, "Error: Input contains integer overflow.\n", 40);
-	else if (x == 2)
-		write(2, "Error: Input contais duplicate values.\n", 39);
-	else if (x == 3)
-		write(2, "Error: Input contais invalid arguments.\n", 40);
+	write(2, "Error\n", 6);
 	exit(1);
 }
 
@@ -79,6 +72,6 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	if ((ngtv * result) > 2147483647 || (ngtv * result) < -2147483648)
-		error(NULL, NULL, 1);
+		error(NULL, NULL);
 	return (result * ngtv);
 }

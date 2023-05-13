@@ -37,7 +37,7 @@ typedef struct s_stack
 bool	args_check(int argc, char *argv[]); //   ✔
 
 // Input checks                                                    Status
-void	check_input(char *argv[], int flag); //                                ✔
+void	check_input(char *argv[], int flag); //                      ✔
 bool	check_number(char *argv); //                                 ✔
 int		find_zeros(char *argv); //                                   ✔
 bool	check_duplicates(char *argv[]); //                           ✔
@@ -84,7 +84,7 @@ void	rotate_a(t_stack **a, int *cost);//                                        
 void	rotate_b(t_stack **b, int *cost);//                                           ✔
 
 // Stack creation                                                Status
-t_stack	*insert_values(int argc, char *argv[], int flag); //                 ✔
+t_stack	*insert_values(int argc, char *argv[], int flag); //       ✔
 t_stack	*stack_add_new(int num); //                                ✔
 void	stack_add_bottom(t_stack **stack, t_stack *new); //        ✔
 t_stack	*fetch_last_stack(t_stack *stack); //                      ✔
@@ -94,7 +94,7 @@ t_stack	*fetch_penultimate_stack(t_stack *stack); //               ✔
 void	rank_values(t_stack *a, int stack_size); //   ✔
 
 // Error handling                                   Status
-void	error(t_stack **a, t_stack **b, int x); //           ✔
+void	error(t_stack **a, t_stack **b); //           ✔
 
 // Utilitary                                                   Status
 int		fetch_stack_size(t_stack *stack); //                     ✔
