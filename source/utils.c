@@ -16,14 +16,13 @@ void	error(t_stack **a, t_stack **b, int x)
 	if (b == NULL || *b != NULL)
 		free_stack(b);
 	if (x == 0)
-		write(fileno(stderr), "Error: Input contains non-integer.\n", 35);
+		write(2, "Error: Input contains non-integer.\n", 35);
 	else if (x == 1)
-		write(1, "Error: Input contains integer overflow.\n", 40);
+		write(2, "Error: Input contains integer overflow.\n", 40);
 	else if (x == 2)
-		write(fileno(stderr), "Error: Input contais duplicate values.\n", 39);
+		write(2, "Error: Input contais duplicate values.\n", 39);
 	else if (x == 3)
-		write(1, "Error: Input contais invalid arguments.\n", 40);
-	
+		write(2, "Error: Input contais invalid arguments.\n", 40);
 	exit(1);
 }
 
