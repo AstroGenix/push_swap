@@ -29,6 +29,8 @@ int	main(int argc, char *argv[])
 	char	**split;
 	int		len;
 	
+	if (argc < 2)
+		return (0);
 	if (argc > 2)
 	{
 		check_input(argv, 1);
