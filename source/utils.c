@@ -18,7 +18,7 @@ void	error(t_stack **a, t_stack **b, int x)
 	if (x == 0)
 		write(1, "Error: Input contains non-integer.\n", 35);
 	else if (x == 1)
-		write(1, "Error: Input contains integer bigger/smaller than allowed.\n", 59);
+		write(1, "Error: Input contains integer overflow.\n", 40);
 	else if (x == 2)
 		write(1, "Error: Input contais duplicate values.\n", 39);
 	else if (x == 3)
@@ -79,7 +79,7 @@ int	ft_atoi(const char *nptr)
 		result = (nptr[i] - '0') + (result * 10);
 		i++;
 	}
-	if ((ngtv * result) > 2147483647 || (ngtv * result) > -2147483648)
+	if ((ngtv * result) > 2147483647 || (ngtv * result) < -2147483648)
 		error(NULL, NULL, 1);
 	return (result * ngtv);
 }

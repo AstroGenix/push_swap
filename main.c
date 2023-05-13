@@ -12,7 +12,7 @@
 
 #include "include/push_swap.h"
 
-// Helper function 
+// Helper function to find size of split.
 static int	arr_size(char **arr)
 {
 	int i = 0;
@@ -29,13 +29,13 @@ int	main(int argc, char *argv[])
 	char	**split;
 	int		len;
 
-	if (args_check(argc, argv) == false)
+	if (args_check(argc, argv) == false) // Check arguments
 		error(NULL, NULL, 3);
-	split = ft_split(argv[1], ' ');
+	split = ft_split(argv[1], ' '); //Split args 
 	len = arr_size(split);
+	check_input(split); // Check input for abnormalities or duplicates (unique numbers only).
 	if (len == 1) // In case only one number was inputed. MIGHT NOT WORK TRY LETTER
 		return (0);
-	check_input(split); // Check input for abnormalities or duplicates (unique numbers only).
 	a = insert_values(len, split);
 	b = NULL;
 	stack_size = fetch_stack_size(a);

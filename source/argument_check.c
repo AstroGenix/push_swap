@@ -17,7 +17,9 @@ bool	args_check(int argc, char *argv[])
 {
 	char	*str;
 
-	if (2 > argc || argc > 2) // Either no arguments or to many arguments.
+	if (2 > argc)
+		return (false);
+	else if (argc > 2) // Either no arguments or to many arguments.
 		return (false);
 	else if (!*argv[1]) // If input is empty.
 		return (false);

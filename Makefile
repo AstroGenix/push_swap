@@ -15,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 # Executable name.
-TARGET = push_swap.a
+TARGET = push_swap
 
 # Soures to compile.
 SOURCES = $(wildcard source/*.c) main.c
