@@ -28,15 +28,24 @@ int	main(int argc, char *argv[])
 	int		stack_size;
 	char	**split;
 	int		len;
-
-	if (args_check(argc, argv) == false) // Check arguments
-		error(NULL, NULL, 3);
-	split = ft_split(argv[1], ' '); //Split args 
-	len = arr_size(split);
-	check_input(split); // Check input for abnormalities or duplicates (unique numbers only).
-	if (len == 1) // In case only one number was inputed. MIGHT NOT WORK TRY LETTER
-		return (0);
-	a = insert_values(len, split);
+	
+	if (argc > 2)
+	{
+		check_input(argv, 1);
+		len = argc;
+		a = insert_values(len, argv, 1);
+	}
+	else
+	{
+		if (args_check(argc, argv) == false) // Check arguments
+			error(NULL, NULL, 3);
+		split = ft_split(argv[1], ' '); //Split args 
+		len = arr_size(split);
+		check_input(split, 0); // Check input for abnormalities or duplicates (unique numbers only).
+		if (len == 1) // In case only one number was inputed. MIGHT NOT WORK TRY LETTER
+			return (0);
+		a = insert_values(len, split, 0);
+	}
 	b = NULL;
 	stack_size = fetch_stack_size(a);
 	rank_values(a, stack_size);
