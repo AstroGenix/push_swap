@@ -13,7 +13,7 @@
 #include "include/push_swap.h"
 
 // Helper function 
-static int arr_size(char **arr)
+static int	arr_size(char **arr)
 {
 	int i = 0;
 	while (arr[i])
@@ -29,13 +29,11 @@ int	main(int argc, char *argv[])
 	char	**split;
 	int		len;
 
-	if (argc < 2) // If /a.out is the only input exit.
-		return (0);
-	else if (argc > 2)
-		error(NULL, NULL, 0);
+	if (args_check(argc, argv) == false)
+		error(NULL, NULL, 3);
 	split = ft_split(argv[1], ' ');
 	len = arr_size(split);
-	if (len == 1)
+	if (len == 1) // In case only one number was inputed. MIGHT NOT WORK TRY LETTER
 		return (0);
 	check_input(split); // Check input for abnormalities or duplicates (unique numbers only).
 	a = insert_values(len, split);

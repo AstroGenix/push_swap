@@ -22,7 +22,8 @@ void	error(t_stack **a, t_stack **b, int x)
 	else if (x == 2)
 		write(1, "Error: Input contais duplicate values.\n", 39);
 	else if (x == 3)
-		write(1, "Error: Input contais duplicate values.\n", 39);
+		write(1, "Error: Input contais invalid arguments.\n", 40);
+	
 	exit(1);
 }
 

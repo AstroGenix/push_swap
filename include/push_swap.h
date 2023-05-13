@@ -33,6 +33,9 @@ typedef struct s_stack
 	struct s_stack	*next;	
 }	t_stack;
 
+// Argument check                              Status
+bool	args_check(int argc, char *argv[]); //   ✔
+
 // Input checks                                                    Status
 void	check_input(char *argv[]); //                                ✔
 bool	check_number(char *argv); //                                 ✔
