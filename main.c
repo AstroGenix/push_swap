@@ -25,12 +25,9 @@ int	main(int argc, char *argv[])
 {
 	t_stack	*a;
 	t_stack	*b;
-	int		stack_size;
 	char	**split;
 	int		len;
 	
-	if (argc < 2)
-		return (0);
 	if (argc > 2)
 	{
 		check_input(argv, 1);
@@ -44,15 +41,12 @@ int	main(int argc, char *argv[])
 		split = ft_split(argv[1], ' '); //Split args 
 		len = arr_size(split);
 		check_input(split, 0); // Check input for abnormalities or duplicates (unique numbers only).
-		if (len == 1) // In case only one number was inputed. MIGHT NOT WORK TRY LETTER
-			return (0);
 		a = insert_values(len, split, 0);
 	}
 	b = NULL;
-	stack_size = fetch_stack_size(a);
-	rank_values(a, stack_size);
+	rank_values(a, fetch_stack_size(a));
 	if (!is_sorted(a))
-		which_sort(&a,&b,stack_size);
+		which_sort(&a,&b,fetch_stack_size(a));
 	// Free both stacks.
 	free_stack(&a);
 	free_stack(&b);
