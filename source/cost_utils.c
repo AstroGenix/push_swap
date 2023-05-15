@@ -22,7 +22,7 @@ void	move(t_stack **a, t_stack **b, int cost_a, int cost_b)
 		r_both(a, b, &cost_a, &cost_b);
 	rotate_a(a, &cost_a); // Perform a rotation of stack A if the cost is non-zero.
 	rotate_b(b, &cost_b); // Perform a rotation of stack B if the cost is non-zero.
-	pa(a,b);
+	pa(a, b);
 }
 // Rotate both stacks in reverse order until one of the costs becomes positive.
 void	rr_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b)
@@ -31,7 +31,7 @@ void	rr_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b)
 	{
 		(*cost_a)++;
 		(*cost_b)++;
-		rrr(a,b);
+		rrr(a, b);
 	}
 }
 // Rotate both stacks until one of the costs becomes negative.
@@ -41,7 +41,7 @@ void	r_both(t_stack **a, t_stack **b, int *cost_a, int *cost_b)
 	{
 		(*cost_a)--;
 		(*cost_b)--;
-		rr(a,b);
+		rr(a, b);
 	}
 }
 // Rotate stack A until cost reaches 0.

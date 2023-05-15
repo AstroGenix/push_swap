@@ -26,27 +26,23 @@ int	main(int argc, char *argv[])
 	t_stack	*a;
 	t_stack	*b;
 	char	**split;
-	int		len;
 	
 	if (argc > 2)
 	{
 		check_input(argv, 1);
-		len = argc;
-		a = insert_values(len, argv, 1);
+		a = insert_values(argc, argv, 1);
 	}
 	else
 	{
 		if (args_check(argc, argv) == false) // Check arguments
 			error(NULL, NULL);
 		split = ft_split(argv[1], ' '); //Split args 
-		len = arr_size(split);
 		check_input(split, 0); // Check input for abnormalities or duplicates (unique numbers only).
-		a = insert_values(len, split, 0);
+		a = insert_values(arr_size(split), split, 0);
 	}
 	b = NULL;
 	rank_values(a, fetch_stack_size(a));
-	if (!is_sorted(a))
-		which_sort(&a,&b,fetch_stack_size(a));
+	which_sort(&a, &b, fetch_stack_size(a));
 	// Free both stacks.
 	free_stack(&a);
 	free_stack(&b);

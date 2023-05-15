@@ -26,7 +26,7 @@ bool	args_check(int argc, char *argv[])
 	else // If input only contains spaces.
 	{
 		str = argv[1];
-		while(str)
+		while (str)
 		{
 			if (*str != ' ')
 				break;

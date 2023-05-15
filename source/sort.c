@@ -39,6 +39,8 @@
 // Choose based on ammount of values which sort to use.
 void	which_sort(t_stack **a, t_stack **b, int s_size)
 {
+	if (is_sorted(*a))
+		return ;
 	if (s_size == 2)
 		sa(a);
 	else if (s_size == 3)
@@ -66,15 +68,15 @@ void	three_sort(t_stack **stack)
 // Sort a size 4 stack using rank values.
 void	four_sort(t_stack **a, t_stack **b)
 {
-	if ((*a)->rank == 2 && (*a)->next->rank == 1 && (*a)->next->next->rank == 3)
+	if ((*a)->rank == 1 && (*a)->next->rank == 0 && (*a)->next->next->rank == 2)
 		sa(a); // Specific case 1 [2] [1] [3] [4]
-	else if ((*a)->rank == 2 && (*a)->next->rank == 3 && (*a)->next->next->rank == 4)
+	else if ((*a)->rank == 1 && (*a)->next->rank == 2 && (*a)->next->next->rank == 3)
 		rra(a); // Specific case 1 [2] [3] [4] [1]
-	else if ((*a)->next->next->next->rank == 4) // [x] [x] [x] [4]
+	else if ((*a)->next->next->next->rank == 3) // [x] [x] [x] [4]
 		rra(a);
-	else if ((*a)->next->rank == 4) // [x] [4] [x] [x]
+	else if ((*a)->next->rank == 3) // [x] [4] [x] [x]
 		ra(a);
-	else if ((*a)->next->next->rank == 4) // [x] [x] [4] [x]
+	else if ((*a)->next->next->rank == 3) // [x] [x] [4] [x]
 	{
 		rra(a);
 		rra(a);
@@ -84,6 +86,8 @@ void	four_sort(t_stack **a, t_stack **b)
 	pb(a,b);
 	three_sort(a); // Basically send the biggest rank to stack B and the other through the three_sort.
 	pa(a,b);
+	if (is_sorted((*a)) == true)
+	    return ;
 	ra(a);
 }
 
@@ -92,13 +96,13 @@ void	big_sort(t_stack **a, t_stack **b, int size)
 {
 	push_all(a, b, size); // Push all the small ranks first into stack B leaving 3 in stack A.
 	three_sort(a); // Sort the remaining numbers.
-	while(*b)
+	while (*b)
 	{
-		target_position(a,b);
-		get_cost(a,b);
-		do_cheapest_move(a,b);
+		target_position(a, b);
+		get_cost(a, b);
+		do_cheapest_move(a, b);
 	}
-	if(!is_sorted(*a))
+	if (!is_sorted(*a))
 		shift_order(a); // Shift the stack back into order.
 	
 }
