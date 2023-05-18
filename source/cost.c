@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
 // Calculates the cost of moving each element of stack B into the correct position in stack A.
 void	get_cost(t_stack **a, t_stack **b)
 {
@@ -41,7 +40,6 @@ void	get_cost(t_stack **a, t_stack **b)
 		temp_b = temp_b->next;
 	}
 }
-
 // Finds the element in stack B with the cheapest cost to move to stack A.
 void	do_cheapest_move(t_stack **a, t_stack **b)
 {
@@ -65,5 +63,5 @@ void	do_cheapest_move(t_stack **a, t_stack **b)
 		}
 		temp = temp->next;
 	}
-	move(a,b,cost_a,cost_b);
+	move(a, b, cost_a, cost_b);
 }

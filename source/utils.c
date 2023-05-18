@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
 // Return absolute number |-1| == |1| == 1
 int	abs_num(int num)
 {
@@ -19,18 +18,16 @@ int	abs_num(int num)
 		return (num * -1);
 	return (num);
 }
-
 // In case of error free the stacks and output error message.
 void	error(t_stack **a, t_stack **b)
 {
-	if (a == NULL || *a != NULL) // Check if the pointer is NULL or that the pointer isn't pointing to a NULL.
+	if (a == NULL || *a != NULL)// Check if the pointer is NULL or that the pointer isn't pointing to a NULL.
 		free_stack(a);
 	if (b == NULL || *b != NULL)
 		free_stack(b);
 	write(2, "Error\n", 6);
 	exit(1);
 }
-
 // Free a stack and set it to null.
 void	free_stack(t_stack **stack)
 {
@@ -46,7 +43,6 @@ void	free_stack(t_stack **stack)
 	}
 	*stack = NULL;
 }
-
 // Checks if stack is sorted from min to max.
 bool	is_sorted(t_stack *stack)
 {
@@ -58,12 +54,11 @@ bool	is_sorted(t_stack *stack)
 	}
 	return (true);
 }
-
 // Converts the initial portion of the string pointed to nptr to int.
-int	ft_atoi(const char *nptr)
+long int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	ngtv;
+	int				i;
+	int				ngtv;
 	long long int	result;
 
 	i = 0;
@@ -87,3 +82,4 @@ int	ft_atoi(const char *nptr)
 		error(NULL, NULL);
 	return (result * ngtv);
 }
+

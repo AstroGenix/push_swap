@@ -48,6 +48,7 @@ static int	word_count(char *string, char c)
 static char	*word_build(const char *str, int start, int finish)
 {
 	char	*word;
+	char	*result;
 	int		i;
 
 	i = 0;
@@ -59,7 +60,9 @@ static char	*word_build(const char *str, int start, int finish)
 		start++;
 	}
 	word[i] = '\0';
-	return (word);
+	result = word;
+	free(word);
+	return (result);
 }
 
 char	**ft_split(char const *s, char c)

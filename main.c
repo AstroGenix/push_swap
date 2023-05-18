@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include "include/push_swap.h"
-
 // Helper function to find size of split.
 static int	arr_size(char **arr)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (arr[i])
 		i++;
 	return (i);
@@ -34,10 +35,10 @@ int	main(int argc, char *argv[])
 	}
 	else
 	{
-		if (args_check(argc, argv) == false) // Check arguments
+		if (args_check(argc, argv) == false)// Check arguments
 			error(NULL, NULL);
-		split = ft_split(argv[1], ' '); //Split args 
-		check_input(split, 0); // Check input for abnormalities or duplicates (unique numbers only).
+		split = ft_split(argv[1], ' ');//Split args 
+		check_input(split, 0);// Check input for abnormalities or duplicates (unique numbers only).
 		a = insert_values(arr_size(split), split, 0);
 	}
 	b = NULL;
@@ -46,9 +47,9 @@ int	main(int argc, char *argv[])
 	// Free both stacks.
 	free_stack(&a);
 	free_stack(&b);
+	free(split);
 	return (0);
 }
-
 // Will rank the values in stack A to make it easier to order. (ranked top (stack_size) to bottom (1))
 void	rank_values(t_stack *a, int stack_size)
 {
@@ -58,14 +59,14 @@ void	rank_values(t_stack *a, int stack_size)
 
 	while (--stack_size > 0)
 	{
-		ptr = a; // Initialize ptr to head of the stack.
-		value = INT_MIN; // Smallest possible integer.
-		top = NULL; // Used to track top number.
+		ptr = a;// Initialize ptr to head of the stack.
+		value = INT_MIN;// Smallest possible integer.
+		top = NULL;// Used to track top number.
 		while (ptr)
 		{
 			if (ptr->num == INT_MIN && ptr->rank == 0)
-				ptr->rank = 1;
-			if (ptr->num > value && ptr->rank == 0) // Get top number and reset small loop.
+				ptr->rank = 0;
+			if (ptr->num > value && ptr->rank == 0)// Get top number and reset small loop.
 			{
 				value = ptr->num;
 				top = ptr;

@@ -24,8 +24,8 @@ t_stack	*insert_values(int argc, char *argv[], int flag)
 		//Create of the stack
 		if (i == flag) //Create head for the stack
 			a = stack_add_new((int)num);
-		else //Values after head get added to bottom
-			stack_add_bottom(&a,stack_add_new((int)num));
+		else//Values after head get added to bottom
+			stack_add_bottom(&a, stack_add_new((int)num));
 		i++;
 	}
 	return (a);
