@@ -11,43 +11,30 @@
 /* ************************************************************************** */
 
 #include "include/push_swap.h"
-// Helper function to find size of split.
-static int	arr_size(char **arr)
+// Good old strlen.
+size_t	ft_strlen(const char *str)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
-	while (arr[i])
+	while (str[i])
 		i++;
 	return (i);
 }
-
+// The main function.
 int	main(int argc, char *argv[])
 {
 	t_stack	*a;
 	t_stack	*b;
-	char	**split;
-	
-	if (argc > 2)
-	{
-		check_input(argv, 1);
-		a = insert_values(argc, argv, 1);
-	}
-	else
-	{
-		if (args_check(argc, argv) == false)// Check arguments
-			error(NULL, NULL);
-		split = ft_split(argv[1], ' ');//Split args 
-		check_input(split, 0);// Check input for abnormalities or duplicates (unique numbers only).
-		a = insert_values(arr_size(split), split, 0);
-	}
+
+	check_input(argv);
+	a = insert_values(argc, argv);
 	b = NULL;
 	rank_values(a, fetch_stack_size(a));
 	which_sort(&a, &b, fetch_stack_size(a));
 	// Free both stacks.
 	free_stack(&a);
 	free_stack(&b);
-	free(split);
 	return (0);
 }
 // Will rank the values in stack A to make it easier to order. (ranked top (stack_size) to bottom (1))

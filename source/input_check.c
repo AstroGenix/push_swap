@@ -16,16 +16,13 @@ Cannot contain duplicate numbers (the following is not allowed)
 0 == 00 | 1 == 01 | -1 == -01 | 
 */
 // Checks input for incorrect values (accepted values are unique positive or negative numbers).
-void	check_input(char *argv[], int flag)
+void	check_input(char *argv[])
 {
 	int			i;
 	int			zeros;
 	long int	num;
 
-	if (flag == 1)
-		i = 1;
-	else
-		i = 0;
+	i = 1;
 	zeros = 0;
 	while (argv[i])// Loop to check for not numbers.
 	{

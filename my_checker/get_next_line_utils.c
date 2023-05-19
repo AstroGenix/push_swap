@@ -17,6 +17,16 @@ This C file will contain all the necessary helper functions used in
 
 #include "../include/push_swap.h"
 
+size_t	ft_strlen(const char *str)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*new_string;

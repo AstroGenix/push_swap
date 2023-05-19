@@ -54,9 +54,9 @@ int	main(int argc, char *argv[])
 	t_stack	*b;
 	char	*line;
 	
-	check_input(argv, 1);
+	check_input(argv);
 	b = NULL;
-	a = insert_values(argc, argv, 1);
+	a = insert_values(argc, argv);
 	line = get_next_line(0);
 	if (!line && !is_sorted(a))
 		write(1, "KO\n", 3);
