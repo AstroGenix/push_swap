@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-static unsigned int	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	unsigned int	i;
 

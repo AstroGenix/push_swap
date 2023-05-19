@@ -33,6 +33,19 @@ typedef struct s_stack
 	struct s_stack	*next;	
 }	t_stack;
 
+//Buffer size definition
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+//Main function
+char		*get_next_line(int fd);
+//Auxiliary functions
+size_t		ft_strlen(const char *str);
+char		*ft_strjoin(const char *s1, const char *s2);
+char		*ft_strchr(const char *s, int c);
+void		*ft_calloc(size_t nmemb, size_t size);
+
 // Argument check                                  Status
 bool		args_check(int argc, char *argv[]); //   ✔
 

@@ -22,21 +22,22 @@ NC = \033[0m
 
 # Executable name.
 TARGET = push_swap
+BONUS_T = checker
 
 # Soures to compile.
 SOURCES = $(wildcard source/*.c) main.c
-#BONUS_S = $(wildcard checker/*.c)
+BONUS_S = $(wildcard my_checker/*.c) $(wildcard source/*.c)
 
 # Dir and object files to be created.
 OBJ_DIR = objects
-#BONUS_DIR = bonus
+BONUS_DIR = bonus
 OBJECTS = $(patsubst source/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
-#BONUS_DIR = $(patsubst checker)
+BONUS_OBJECTS = $(patsubst checker/%.c,$(BONUS_DIR)/%.o,$(BONUS_S))
 
 # Define these targets as "phony" so Make doesn't confuse them with files.
 .PHONY: all clean fclean re
 
-all: $(TARGET)
+all: $(TARGET) $(BONUS_T)
 
 # Build the executable by linking all the files
 $(TARGET): $(OBJECTS)
@@ -44,18 +45,30 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@
 	@printf "$(BGREEN)$(WHITE) Compilation complete! $(NC)\n"
 
+# Build the executable for checker by linking all the files
+$(BONUS_T): $(BONUS_OBJECTS)
+	@printf "$(BCYAN)$(WHITE) Compiling checker... $(NC)\n"
+	$(CC) $(CFLAGS) $^ -o $@
+	@printf "$(BGREEN)$(WHITE) Compilation of checker complete! $(NC)\n"
+
 # Build each object file
 $(OBJ_DIR)/%.o: source/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Build each object file for checker
+$(BONUS_DIR)/%.o: checker/%.c | $(BONUS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create the dir if it isn't there
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+$(BONUS_DIR):
+	mkdir -p $(BONUS_DIR)
 
 clean:
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR) $(BONUS_DIR)
 
 fclean: clean
-	rm -f $(TARGET)
+	rm -f $(TARGET) $(BONUS_T)
 
 re: fclean all
