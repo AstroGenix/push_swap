@@ -27,10 +27,12 @@ int	main(int argc, char *argv[])
 	t_stack	*a;
 	t_stack	*b;
 
+	if (argc < 2)
+		return (0);
 	check_input(argv);
 	a = insert_values(argc, argv);
 	b = NULL;
-	rank_values(a, fetch_stack_size(a));
+	rank_values(a, fetch_stack_size(a) + 1);
 	which_sort(&a, &b, fetch_stack_size(a));
 	// Free both stacks.
 	free_stack(&a);
